@@ -14,7 +14,12 @@ library(FLBRP)
 library(ggplotFL)
 
 # data
-load("model/model.rda")
+data(ple4)
+data(ple4.index)
+stk <- window(ple4, start=1980)
+idx <- FLIndices(window(ple4.index, start=1980))
+fit0 <- sca(stk, idx)
+
 # set up
 its <- 250
 seed <- 123
@@ -28,10 +33,11 @@ seed <- 123
 # fit loaded from model_a4a.R
 fit <- simulate(fit0, its, seed=seed)
 pred <- predict(fit)
-om <- ara.stk + fit
+om <- stk + fit
 # repeating these to have sr and brp distributions
 om.sr <- fmle(as.FLSR(om, model="bevholt"), control = list(trace = 0))
 om.brp <- brp(FLBRP(om, sr=om.sr))
 plot(om)
 
-save(om, om.sr, om.brp, its, seed, fit, pred, file="model/om.rda")
+save(om, om.sr, om.brp, its, seed, fit, pred, idx, stk, file="model/om.rda")
+

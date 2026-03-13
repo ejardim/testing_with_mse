@@ -68,7 +68,7 @@ c.oe[] <- pred$vmodel$catch[,1] # catch oe constant over time
 # estimator setup
 # EWG 23-12 Final selected sub models:
 # qmod  <- list(~ factor(replace(age, age>5, 5)))
-# fmod  <- ~ s(age, k=4) + s(year, k=7)
+fmod  <- ~ s(age, k=4) + factor(year)
 # srmod <- ~ geomean(CV=0.6)
 # n1mod <- defaultN1mod(stk.oe)
 # vmod <- defaultVmod(stk.oe, idx.oe)
@@ -95,7 +95,7 @@ stk <- window(stk.oe, end=dy)
 
 # MP
 # Estimator is sca with FLa4a
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk + estimator
 # beverton and holt stock recruitment is fitted every year
 sr0 <- fmle(as.FLSR(window(stk0, start=2000), model="geomean"), control = list(trace = 0))
@@ -145,7 +145,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -188,7 +188,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -231,7 +231,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -274,7 +274,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -317,7 +317,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -360,7 +360,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -403,7 +403,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -446,7 +446,7 @@ stk <- window(om, end=dy)
 stk[,dy]@catch.n <- exp(log(stk[,dy]@catch.n) + rnorm(its, 0, sqrt(c.oe[,dy])))
 
 # MP
-estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod)
+estimator <- sca(stk, idx, fit="MP", qmodel=qmod, vmodel=vmod, n1model=n1mod, fmodel=fmod)
 stk0 <- stk3 <- stk + estimator
 #sr0 <- fmle(as.FLSR(window(stk0, start=2015), model="geomean"), control = list(trace = 0))
 # ftrg <- refpts(brp(FLBRP(stk0, sr0)))[frefpt, "harvest"]
@@ -579,14 +579,17 @@ ggplot(mapping=aes(y=c(c_f_msy), x=c(f_fmsy))) +
   ) +
   theme_minimal()
 
+save(om, perceivedstock.lst, tracking, q.oe, c.oe, file="results/mp_sepsel.rda")
+
+
 #====================================================================
 # Extensions
 #====================================================================
 
-- Use a different stock assessment model
-- Use a different assessment frequency
-- Don't reestimate reference points every year
-- Use a different catchability for the survey
-- Introduce uncertainty in catchability, or recruitment
-- ...
+#- Use a different stock assessment model
+#- Use a different assessment frequency
+#- Don't reestimate reference points every year
+#- Use a different catchability for the survey
+#- Introduce uncertainty in catchability, or recruitment
+#- ...
 
